@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  * @author aziza putri amelia
  */
 public class FormTheme extends javax.swing.JFrame {
-    Connection conn;
     DefaultTableModel model;
+    private ThemeDAO themeDAO = new ThemeDAO();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormTheme.class.getName());
 
@@ -40,8 +40,6 @@ public class FormTheme extends javax.swing.JFrame {
         model.addColumn("Nama Tema");
         model.addColumn("Folder Path");
 
-        conn = KoneksiDB.getKoneksi();
-
         loadData();
   
     }
@@ -61,20 +59,18 @@ public class FormTheme extends javax.swing.JFrame {
         model.setRowCount(0);
 
         try {
-            String sql = "SELECT * FROM tb_theme";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            java.util.List<theme> listTheme = themeDAO.getAllTheme();
 
-            while (rs.next()) {
+            for (theme t : listTheme) {
                 model.addRow(new Object[]{
-                    rs.getString("id_theme"),
-                    rs.getString("nama_theme"),
-                    rs.getString("folder_path")
+                    t.getIdTheme(),
+                    t.getNamaTheme(),
+                    t.getFolderPath()
                 });
             }
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data: " + e.getMessage());
         }
     }
     
@@ -361,66 +357,65 @@ public class FormTheme extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "INSERT INTO tb_theme (nama_theme, folder_path) VALUES (?, ?)";
+            theme t = new theme();
+            t.setNamaTheme(tfNamaTema.getText());
+            t.setFolderPath(tfFolderPath.getText());
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setString(1, tfNamaTema.getText());
-            ps.setString(2, tfFolderPath.getText());
-
-            ps.executeUpdate();
+            themeDAO.tambahTheme(t);
 
             JOptionPane.showMessageDialog(this, "Berhasil tambah data");
 
             loadData();
             resetForm();
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        }   
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal menambah data: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnTambahMouseClicked
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
         // TODO add your handling code here:
-         try {
-            String sql = "UPDATE tb_theme SET nama_theme=?, folder_path=? WHERE id_theme=?";
+         if (tfID.getText().isEmpty() || tfNamaTema.getText().isEmpty() || tfFolderPath.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Data belum lengkap atau belum dipilih!");
+            return;
+        }
+        try {
+            theme t = new theme();
+            t.setIdTheme(Integer.parseInt(tfID.getText()));
+            t.setNamaTheme(tfNamaTema.getText());
+            t.setFolderPath(tfFolderPath.getText());
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setString(1, tfNamaTema.getText());
-            ps.setString(2, tfFolderPath.getText());
-            ps.setString(3, tfID.getText());
-
-            ps.executeUpdate();
+            themeDAO.updateTheme(t);
 
             JOptionPane.showMessageDialog(this, "Berhasil edit data");
 
             loadData();
             resetForm();
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal mengedit data: " + e.getMessage());
         }
     }//GEN-LAST:event_btnEditMouseClicked
 
     private void btnHapusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHapusMouseClicked
         // TODO add your handling code here:
+        if (tfID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Silakan pilih data pada tabel terlebih dahulu.");
+            return;
+        }
         try {
-            String sql = "DELETE FROM tb_theme WHERE id_theme=?";
-
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, tfID.getText());
-
-            ps.executeUpdate();
+            int idTheme = Integer.parseInt(tfID.getText());
+            
+            themeDAO.deleteTheme(idTheme);
 
             JOptionPane.showMessageDialog(this, "Berhasil hapus data");
 
             loadData();
             resetForm();
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-        } 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Gagal menghapus data: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnHapusMouseClicked
 
     /**
