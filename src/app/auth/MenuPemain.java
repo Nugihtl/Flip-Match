@@ -5,6 +5,7 @@
 package app.auth;
 
 import app.auth.Session;
+import app.game.GameEngine;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 /**
@@ -120,6 +121,16 @@ public class MenuPemain extends javax.swing.JFrame {
 
     private void btnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseClicked
         // TODO add your handling code here:
+            GameEngine game = new GameEngine(
+            1,
+            "Hewan",
+            "src/hewan",
+            2,
+            2,
+            60
+        );
+
+    game.setVisible(true);
     }//GEN-LAST:event_btnMenuMouseClicked
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed

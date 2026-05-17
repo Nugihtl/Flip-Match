@@ -9,6 +9,6 @@ package app.auth;
  * @author Siti Amalia Putri
  */
 public class Session {
-    public static int idUser;
-    public static String username;
+    public static int idUser = -1;
+    public static String username = "";
 }
