@@ -17,71 +17,72 @@ import java.util.List;
  */
 public class LevelDAO {
     private Connection conn;
-    
-    public LevelDAO(){
-    conn = KoneksiDB.getKoneksi();
+
+    public LevelDAO() {
+        this.conn = KoneksiDB.getKoneksi();
     }
-    
-    //buat createnya
-    public boolean insert(Level level) {
-        String sql = "INSERT INTO tb_level (nama_level, baris, kolom, waktu_detik) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setString(1, level.getNamaLevel());
-            pst.setInt(2, level.getBaris());
-            pst.setInt(3, level.getKolom());
-            pst.setInt(4, level.getWaktuDetik());
-            return pst.executeUpdate() > 0;
-        } catch (Exception e) {
-            System.out.println("Gagal Insert: " + e.getMessage());
-            return false;
-        }
-    }
-    
-    // buat readnya
+
     public List<Level> getAll() {
-        List<Level> listLevel = new ArrayList<>();
-        String sql = "SELECT * FROM tb_level";
-        try (PreparedStatement pst = conn.prepareStatement(sql);
-             ResultSet rs = pst.executeQuery()) {
+        List<Level> list = new ArrayList<>();
+        String sql = "SELECT l.*, t.nama_theme FROM tb_level l " +
+                     "JOIN tb_theme t ON l.id_theme = t.id_theme";
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Level lvl = new Level();
                 lvl.setIdLevel(rs.getInt("id_level"));
+                lvl.setIdTheme(rs.getInt("id_theme"));
                 lvl.setNamaLevel(rs.getString("nama_level"));
                 lvl.setBaris(rs.getInt("baris"));
                 lvl.setKolom(rs.getInt("kolom"));
                 lvl.setWaktuDetik(rs.getInt("waktu_detik"));
-                listLevel.add(lvl);
+                lvl.setNamaTheme(rs.getString("nama_theme")); 
+                list.add(lvl);
             }
         } catch (Exception e) {
-            System.out.println("Gagal Read: " + e.getMessage());
+            System.out.println("Error getAll Level: " + e.getMessage());
         }
-        return listLevel;
+        return list;
     }
-    
-    // update
-    public boolean update(Level level) {
-        String sql = "UPDATE tb_level SET nama_level = ?, baris = ?, kolom = ?, waktu_detik = ? WHERE id_level = ?";
-        try (java.sql.PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setString(1, level.getNamaLevel());
-            pst.setInt(2, level.getBaris());
-            pst.setInt(3, level.getKolom());
-            pst.setInt(4, level.getWaktuDetik());
-            pst.setInt(5, level.getIdLevel());
-            return pst.executeUpdate() > 0;
+
+    public boolean insert(Level level) {
+        String sql = "INSERT INTO tb_level (id_theme, nama_level, baris, kolom, waktu_detik) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, level.getIdTheme());
+            ps.setString(2, level.getNamaLevel());
+            ps.setInt(3, level.getBaris());
+            ps.setInt(4, level.getKolom());
+            ps.setInt(5, level.getWaktuDetik());
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
-            System.out.println("Gagal Update: " + e.getMessage());
+            System.out.println("Error insert Level: " + e.getMessage());
             return false;
         }
     }
 
-    //buat si delete
-    public boolean delete(int id) {
-        String sql = "DELETE FROM tb_level WHERE id_level = ?";
-        try (PreparedStatement pst = conn.prepareStatement(sql)) {
-            pst.setInt(1, id);
-            return pst.executeUpdate() > 0;
+    public boolean update(Level level) {
+        String sql = "UPDATE tb_level SET id_theme = ?, nama_level = ?, baris = ?, kolom = ?, waktu_detik = ? WHERE id_level = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, level.getIdTheme());
+            ps.setString(2, level.getNamaLevel());
+            ps.setInt(3, level.getBaris());
+            ps.setInt(4, level.getKolom());
+            ps.setInt(5, level.getWaktuDetik());
+            ps.setInt(6, level.getIdLevel());
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
-            System.out.println("Gagal Delete: " + e.getMessage());
+            System.out.println("Error update Level: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean delete(int idLevel) {
+        String sql = "DELETE FROM tb_level WHERE id_level = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idLevel);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            System.out.println("Error delete Level: " + e.getMessage());
             return false;
         }
     } 
@@ -118,3 +119,4 @@ public class LevelDAO {
        return level;
    }
 }
+

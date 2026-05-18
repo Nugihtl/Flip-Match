@@ -23,28 +23,14 @@ public class DashboardLevel extends javax.swing.JFrame {
     public DashboardLevel() {
         initComponents();
         this.setLocationRelativeTo(null); // biar di tengah layar
-        skalaGambarBackground();
         muatDataTabel(); // Panggil fungsi muat data saat aplikasi berjalan
     }
     
-    private void skalaGambarBackground() {
-        try {
-            javax.swing.ImageIcon ikonAsli = new javax.swing.ImageIcon(getClass().getResource("/assets/bg.jpeg"));
-            java.awt.Image gambarAsli = ikonAsli.getImage();
-            
-            // Memaksa wadah label membesar sesuai resolusi frame
-            lblBackground.setSize(1280, 720);
-            
-            java.awt.Image gambarSkala = gambarAsli.getScaledInstance(1280, 720, java.awt.Image.SCALE_SMOOTH);
-            lblBackground.setIcon(new javax.swing.ImageIcon(gambarSkala));
-        } catch (Exception e) {
-            System.out.println("Gagal memuat latar belakang: " + e.getMessage());
-        }
-    }
     
     public void muatDataTabel() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID Level");
+        model.addColumn("Tema Kartu"); 
         model.addColumn("Nama Level");
         model.addColumn("Baris");
         model.addColumn("Kolom");
@@ -56,6 +42,7 @@ public class DashboardLevel extends javax.swing.JFrame {
         for (Level lvl : dataLevel) {
             model.addRow(new Object[]{
                 lvl.getIdLevel(),
+                lvl.getNamaTheme(), 
                 lvl.getNamaLevel(),
                 lvl.getBaris(),
                 lvl.getKolom(),
@@ -79,10 +66,8 @@ public class DashboardLevel extends javax.swing.JFrame {
         btnEditLevel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblBackground = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -124,10 +109,6 @@ public class DashboardLevel extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, 320));
 
-        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bg.jpeg"))); // NOI18N
-        lblBackground.setText("jLabel1");
-        getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 420));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -165,16 +146,18 @@ public class DashboardLevel extends javax.swing.JFrame {
         int barisTerpilih = jTable1.getSelectedRow();
         
         if (barisTerpilih >= 0) {
-            // Mengambil data dari tabel berdasarkan indeks kolom
-            int idLevel = (int) jTable1.getValueAt(barisTerpilih, 0);
-            String nama = (String) jTable1.getValueAt(barisTerpilih, 1);
-            int baris = (int) jTable1.getValueAt(barisTerpilih, 2);
-            int kolom = (int) jTable1.getValueAt(barisTerpilih, 3);
-            int waktu = (int) jTable1.getValueAt(barisTerpilih, 4);
+            java.util.List<Level> dataLevel = levelDAO.getAll();
+            Level lvlTerpilih = dataLevel.get(barisTerpilih);
             
-            // Instansiasi form input, kirim referensi dasbor, set data edit, lalu tampilkan
             FormLevelInput formInput = new FormLevelInput(this);
-            formInput.setModeEdit(idLevel, nama, baris, kolom, waktu);
+            formInput.setModeEdit(
+                lvlTerpilih.getIdLevel(), 
+                lvlTerpilih.getIdTheme(), 
+                lvlTerpilih.getNamaLevel(), 
+                lvlTerpilih.getBaris(), 
+                lvlTerpilih.getKolom(), 
+                lvlTerpilih.getWaktuDetik()
+            );
             formInput.setVisible(true);
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Silakan pilih baris pada tabel terlebih dahulu untuk diedit.", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
@@ -212,7 +195,6 @@ public class DashboardLevel extends javax.swing.JFrame {
     private javax.swing.JButton btnTambahLevel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblBackground;
     private javax.swing.JLabel lblJudulDaftarLevel;
     // End of variables declaration//GEN-END:variables
 }

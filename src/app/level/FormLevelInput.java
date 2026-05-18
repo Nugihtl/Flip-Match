@@ -18,30 +18,46 @@ public class FormLevelInput extends javax.swing.JFrame {
     
     // Instansiasi DAO dan referensi Dasbor
     private LevelDAO levelDAO = new LevelDAO();
+    private app.theme.ThemeDAO themeDAO = new app.theme.ThemeDAO(); 
     private DashboardLevel dashboardUtama;
+    private int editIdLevel = -1;
     
     // ubah konstruktor bawaan untuk menerima referensi Dasbor
     public FormLevelInput(DashboardLevel dashboard) {
         this.dashboardUtama = dashboard;
         initComponents();
-        this.setLocationRelativeTo(null); // Tampilkan di tengah layar
+        this.setLocationRelativeTo(null);
+        populateThemeComboBox(); 
     }
     
     public FormLevelInput() {
         initComponents();
     }
     
-    // Variabel untuk menyimpan ID saat mode edit.
-    private int editIdLevel = -1; 
+    private void populateThemeComboBox() {
+        cbTheme.removeAllItems();
+        java.util.List<app.theme.theme> themes = themeDAO.getAllTheme();
+        for (app.theme.theme t : themes) {
+            cbTheme.addItem(new ThemeItem(t.getIdTheme(), t.getNamaTheme()));
+        }
+    }
 
     // Fungsi untuk mengubah form menjadi mode Edit dan mengisi kolom dengan data lama
-    public void setModeEdit(int id, String nama, int baris, int kolom, int waktu) {
+    public void setModeEdit(int id, int idTheme, String nama, int baris, int kolom, int waktu) {
         this.editIdLevel = id;
         txtNamaLevel.setText(nama);
         txtJumlahBaris.setText(String.valueOf(baris));
         txtJumlahKolom.setText(String.valueOf(kolom));
         txtWaktu.setText(String.valueOf(waktu));
-        lblJudulBuatLevel.setText("Edit Level"); // Opsional: mengubah teks judul form
+        lblJudulBuatLevel.setText("Edit Level");
+        
+        for (int i = 0; i < cbTheme.getItemCount(); i++) {
+            ThemeItem item = (ThemeItem) cbTheme.getItemAt(i);
+            if (item.id == idTheme) {
+                cbTheme.setSelectedIndex(i);
+                break;
+            }
+        }
     }
 
     /**
@@ -59,14 +75,14 @@ public class FormLevelInput extends javax.swing.JFrame {
         txtJumlahKolom = new javax.swing.JTextField();
         txtWaktu = new javax.swing.JTextField();
         btnSimpanLevel = new javax.swing.JButton();
-        lblWaktu = new javax.swing.JLabel();
+        lblCbTema = new javax.swing.JLabel();
         lblJumlahKolom = new javax.swing.JLabel();
         lblJudulBuatLevel = new javax.swing.JLabel();
         lblJumlahBaris = new javax.swing.JLabel();
-        lblBackground = new javax.swing.JLabel();
+        cbTheme = new javax.swing.JComboBox<>();
+        lblWaktu1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -90,11 +106,11 @@ public class FormLevelInput extends javax.swing.JFrame {
         btnSimpanLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         btnSimpanLevel.setText("SIMPAN");
         btnSimpanLevel.addActionListener(this::btnSimpanLevelActionPerformed);
-        getContentPane().add(btnSimpanLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 240, 30));
+        getContentPane().add(btnSimpanLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 240, 30));
 
-        lblWaktu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblWaktu.setText("Waktu:");
-        getContentPane().add(lblWaktu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
+        lblCbTema.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblCbTema.setText("Tema:");
+        getContentPane().add(lblCbTema, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, -1, -1));
 
         lblJumlahKolom.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblJumlahKolom.setText("Jumlah Kolom:");
@@ -108,9 +124,13 @@ public class FormLevelInput extends javax.swing.JFrame {
         lblJumlahBaris.setText("Jumlah Baris:");
         getContentPane().add(lblJumlahBaris, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
 
-        lblBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bg.jpeg"))); // NOI18N
-        lblBackground.setText("jLabel1");
-        getContentPane().add(lblBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 420));
+        cbTheme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTheme.addActionListener(this::cbThemeActionPerformed);
+        getContentPane().add(cbTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, 270, -1));
+
+        lblWaktu1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblWaktu1.setText("Waktu:");
+        getContentPane().add(lblWaktu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -134,6 +154,13 @@ public class FormLevelInput extends javax.swing.JFrame {
     private void btnSimpanLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanLevelActionPerformed
         // TODO add your handling code here:
         try {
+            ThemeItem selectedTheme = (ThemeItem) cbTheme.getSelectedItem();
+            if (selectedTheme == null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Silakan tentukan tema terlebih dahulu.", "Peringatan", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            int idTheme = selectedTheme.id;
             String nama = txtNamaLevel.getText();
             int baris = Integer.parseInt(txtJumlahBaris.getText());
             int kolom = Integer.parseInt(txtJumlahKolom.getText());
@@ -144,25 +171,22 @@ public class FormLevelInput extends javax.swing.JFrame {
                 return;
             }
 
-            Level levelData = new Level(nama, baris, kolom, waktu);
+            Level levelData = new Level(idTheme, nama, baris, kolom, waktu);
             boolean berhasil = false;
 
-            // Percabangan logika eksekusi DAO
             if (editIdLevel == -1) {
-                // Mode Tambah Baru
                 berhasil = levelDAO.insert(levelData);
             } else {
-                // Mode Edit Data
-                levelData.setIdLevel(editIdLevel); // Set ID yang akan diupdate
+                levelData.setIdLevel(editIdLevel);
                 berhasil = levelDAO.update(levelData);
             }
 
             if (berhasil) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Data level berhasil disimpan.");
                 if (dashboardUtama != null) {
-                    dashboardUtama.muatDataTabel(); // Perbarui tabel dasbor
+                    dashboardUtama.muatDataTabel();
                 }
-                this.dispose(); // Tutup form
+                this.dispose();
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Gagal menyimpan data ke basis data.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
@@ -170,6 +194,10 @@ public class FormLevelInput extends javax.swing.JFrame {
             javax.swing.JOptionPane.showMessageDialog(this, "Input Baris, Kolom, dan Waktu harus berupa angka bulat.", "Format Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSimpanLevelActionPerformed
+
+    private void cbThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbThemeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbThemeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,15 +226,23 @@ public class FormLevelInput extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSimpanLevel;
-    private javax.swing.JLabel lblBackground;
+    private javax.swing.JComboBox<Object> cbTheme;
+    private javax.swing.JLabel lblCbTema;
     private javax.swing.JLabel lblJudulBuatLevel;
     private javax.swing.JLabel lblJumlahBaris;
     private javax.swing.JLabel lblJumlahKolom;
     private javax.swing.JLabel lblNamaLevel;
-    private javax.swing.JLabel lblWaktu;
+    private javax.swing.JLabel lblWaktu1;
     private javax.swing.JTextField txtJumlahBaris;
     private javax.swing.JTextField txtJumlahKolom;
     private javax.swing.JTextField txtNamaLevel;
     private javax.swing.JTextField txtWaktu;
     // End of variables declaration//GEN-END:variables
+}
+
+class ThemeItem {
+    int id;
+    String name;
+    public ThemeItem(int id, String name) { this.id = id; this.name = name; }
+    @Override public String toString() { return name; }
 }

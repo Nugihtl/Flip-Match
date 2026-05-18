@@ -48,4 +48,7 @@ public class theme {
         this.folderPath = folderPath;
     }
 
+    public void setIdTheme(int idTheme) {
+    this.idTheme = idTheme;
+    }
 }
