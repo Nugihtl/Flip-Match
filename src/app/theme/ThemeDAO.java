@@ -96,4 +96,34 @@ public class ThemeDAO {
         }
     }
     
+    public theme getThemeByName(String namaTheme) {
+
+        theme themeData = null;
+
+        String sql = "SELECT * FROM tb_theme WHERE nama_theme = ?";
+
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setString(1, namaTheme);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()) {
+
+                themeData = new theme();
+
+                themeData.setIdTheme(rs.getInt("id_theme"));
+                themeData.setNamaTheme(rs.getString("nama_theme"));
+                themeData.setFolderPath(rs.getString("folder_path"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Gagal mengambil theme: " + e.getMessage());
+        }
+
+        return themeData;
+    }
+    
 }
