@@ -28,6 +28,10 @@ public class theme {
         return idTheme;
     }
     
+    public void setIdTheme(int idTheme) {
+        this.idTheme = idTheme;
+    }
+    
     public String getNamaTheme() {
     return namaTheme;
     }

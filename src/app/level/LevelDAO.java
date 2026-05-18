@@ -85,5 +85,38 @@ public class LevelDAO {
             System.out.println("Error delete Level: " + e.getMessage());
             return false;
         }
-    }
+    } 
+
+    public Level getLevelById(int idLevel) {
+
+       Level level = null;
+
+       String sql = "SELECT * FROM tb_level WHERE id_level = ?";
+
+       try {
+
+           PreparedStatement ps = conn.prepareStatement(sql);
+
+           ps.setInt(1, idLevel);
+
+           ResultSet rs = ps.executeQuery();
+
+           if(rs.next()) {
+
+               level = new Level();
+
+               level.setIdLevel(rs.getInt("id_level"));
+               level.setNamaLevel(rs.getString("nama_level"));
+               level.setBaris(rs.getInt("baris"));
+               level.setKolom(rs.getInt("kolom"));
+               level.setWaktuDetik(rs.getInt("waktu_detik"));
+           }
+
+       } catch (Exception e) {
+           System.out.println("Gagal ambil level: " + e.getMessage());
+       }
+
+       return level;
+   }
 }
+

@@ -60,8 +60,8 @@ import javax.imageio.ImageIO;
     private boolean comparing = false;
     private boolean gameEnded = false;
 
-    private final int cardWidth = 110;
-    private final int cardHeight = 110;
+    private int cardWidth;
+    private int cardHeight;
 
     private ImageIcon backIcon;
 
@@ -80,13 +80,45 @@ import javax.imageio.ImageIO;
             throw new IllegalArgumentException("Jumlah kartu harus genap.");
         }
 
+        setCardSize();
         initUI();
         loadThemeAndBuildBoard();
         startCountdown();
     }
+    
+    private void setCardSize() {
+
+        if(rows == 4 && cols == 4) {
+
+            cardWidth = 150;
+            cardHeight = 210;
+
+        } else if(rows == 4 && cols == 5) {
+
+            cardWidth = 120;
+            cardHeight = 170;
+
+        } else if(rows == 6 && cols == 6) {
+
+            cardWidth = 80;
+            cardHeight = 120;
+            
+        } else {
+            
+        cardWidth = 100;
+        cardHeight = 140;
+        }
+    }
 
     private void initUI() {
         setTitle("Flip & Match");
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
+        }
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1100, 800);
         setLocationRelativeTo(null);
@@ -182,10 +214,19 @@ import javax.imageio.ImageIO;
         List<String> result = new ArrayList<>();
 
         try {
-            Path folder = Paths.get(folderPath);
+            // Bersihkan slash di depan kalau ada
+            String cleanPath = folderPath.startsWith("/") ? folderPath.substring(1) : folderPath;
 
-            if (!Files.exists(folder) || !Files.isDirectory(folder)) {
-                throw new IllegalArgumentException("Folder tema tidak ditemukan: " + folderPath);
+            java.net.URL folderURL = getClass().getClassLoader().getResource(cleanPath);
+
+            if (folderURL == null) {
+                throw new IllegalArgumentException("Folder tema tidak ditemukan: " + cleanPath);
+            }
+
+            Path folder = Paths.get(folderURL.toURI());
+
+            if (!Files.isDirectory(folder)) {
+                throw new IllegalArgumentException("Bukan folder: " + cleanPath);
             }
 
             try (var stream = Files.list(folder)) {
@@ -372,12 +413,18 @@ import javax.imageio.ImageIO;
         setBoardEnabled(false);
 
         if (win) {
-            int displayScore = calculateDisplayScore();
+        int displayScore = calculateDisplayScore();
 
-            boolean saved = false;
-            if (Session.idUser > 0) {
-                saved = scoreDAO.insertScore(Session.idUser, idLevel, timeLeft, moves);
-            }
+        boolean saved = false;
+
+        if (Session.idUser > 0) {
+            saved = scoreDAO.insert(
+                    Session.idUser,
+                    idLevel,
+                    timeLeft,
+                    moves
+            );
+        }
 
             JOptionPane.showMessageDialog(
                     this,
@@ -407,10 +454,6 @@ import javax.imageio.ImageIO;
     }
 
     public static void main(String[] args) {
-        // Contoh test manual:
-        // Session.idUser = 1;
-        // Session.username = "amalia";
-        // new GameEngine(1, "Hewan", "src/assets/cards/hewan", 4, 4, 60);
 
         JOptionPane.showMessageDialog(null, "Panggil GameEngine dari MenuPemain.");
     }

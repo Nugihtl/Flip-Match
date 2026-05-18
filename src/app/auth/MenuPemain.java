@@ -6,20 +6,44 @@ package app.auth;
 
 import app.auth.Session;
 import app.game.GameEngine;
+import app.level.Level;
+import app.level.LevelDAO;
+import app.theme.ThemeDAO;
+import app.theme.theme;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Siti Amalia Putri
  */
 public class MenuPemain extends javax.swing.JFrame {
 
+    private Level selectedLevel;
+
+    private LevelDAO levelDAO = new LevelDAO();
+
+    private ThemeDAO themeDAO = new ThemeDAO();
     /**
      * Creates new form MenuPemanin
      */
     public MenuPemain() {
         initComponents();
+        
+        setTitle("Flip & Match");
+
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
         }
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,7 +57,12 @@ public class MenuPemain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnMenu = new javax.swing.JButton();
+        btnMudah = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        btnBuah = new javax.swing.JButton();
+        btnHewan = new javax.swing.JButton();
+        btnSedang = new javax.swing.JButton();
+        btnSulit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,19 +78,87 @@ public class MenuPemain extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(102, 51, 0));
         jLabel1.setText("Selamat Datang Player");
 
-        btnMenu.setBackground(new java.awt.Color(102, 51, 0));
-        btnMenu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
-        btnMenu.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenu.setText("Menu Player");
-        btnMenu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMudah.setBackground(new java.awt.Color(102, 51, 0));
+        btnMudah.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnMudah.setForeground(new java.awt.Color(255, 255, 255));
+        btnMudah.setText("Mudah");
+        btnMudah.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnMudah.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMenuMouseClicked(evt);
+                btnMudahMouseClicked(evt);
             }
         });
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+        btnMudah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
+                btnMudahActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(45, 22, 0));
+        jLabel10.setText("Pilih menu dibawah untuk melanjutkan!");
+
+        btnBuah.setBackground(new java.awt.Color(102, 51, 0));
+        btnBuah.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnBuah.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuah.setText("Buah");
+        btnBuah.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBuah.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuahMouseClicked(evt);
+            }
+        });
+        btnBuah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuahActionPerformed(evt);
+            }
+        });
+
+        btnHewan.setBackground(new java.awt.Color(102, 51, 0));
+        btnHewan.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnHewan.setForeground(new java.awt.Color(255, 255, 255));
+        btnHewan.setText("Hewan");
+        btnHewan.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnHewan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHewanMouseClicked(evt);
+            }
+        });
+        btnHewan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHewanActionPerformed(evt);
+            }
+        });
+
+        btnSedang.setBackground(new java.awt.Color(102, 51, 0));
+        btnSedang.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnSedang.setForeground(new java.awt.Color(255, 255, 255));
+        btnSedang.setText("Sedang");
+        btnSedang.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSedang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSedangMouseClicked(evt);
+            }
+        });
+        btnSedang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSedangActionPerformed(evt);
+            }
+        });
+
+        btnSulit.setBackground(new java.awt.Color(102, 51, 0));
+        btnSulit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnSulit.setForeground(new java.awt.Color(255, 255, 255));
+        btnSulit.setText("Sulit");
+        btnSulit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSulit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSulitMouseClicked(evt);
+            }
+        });
+        btnSulit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSulitActionPerformed(evt);
             }
         });
 
@@ -70,22 +167,44 @@ public class MenuPemain extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
+                .addGap(158, 158, 158)
+                .addComponent(btnMudah, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(btnSedang, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(btnSulit, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(107, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(223, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel10))
+                        .addGap(207, 207, 207))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBuah, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(223, 223, 223))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(221, 221, 221)
+                .addGap(49, 49, 49)
                 .addComponent(jLabel1)
-                .addGap(108, 108, 108)
-                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMudah, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSedang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSulit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(142, 142, 142)
+                .addComponent(btnHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83)
+                .addComponent(btnBuah, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(606, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -93,9 +212,9 @@ public class MenuPemain extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(320, Short.MAX_VALUE)
+                .addContainerGap(300, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(320, 320, 320))
+                .addGap(300, 300, 300))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,23 +238,80 @@ public class MenuPemain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseClicked
+    private void btnMudahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMudahMouseClicked
         // TODO add your handling code here:
-            GameEngine game = new GameEngine(
-            1,
-            "Hewan",
-            "src/hewan",
-            2,
-            2,
-            60
+            selectedLevel = levelDAO.getLevelById(1);
+
+            JOptionPane.showMessageDialog(this,
+            "Level Mudah dipilih");
+    }//GEN-LAST:event_btnMudahMouseClicked
+
+    private void btnMudahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMudahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMudahActionPerformed
+
+    private void btnBuahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuahMouseClicked
+        // TODO add your handling code here:
+        ThemeDAO themeDAO = new ThemeDAO();
+        theme selectedTheme = themeDAO.getThemeByName("Buah");
+        GameEngine game = new GameEngine(
+            selectedLevel.getIdLevel(),
+            selectedTheme.getNamaTheme(),
+            selectedTheme.getFolderPath(),
+            selectedLevel.getBaris(),
+            selectedLevel.getKolom(),
+            selectedLevel.getWaktuDetik()
         );
+        game.setVisible(true);
+    }//GEN-LAST:event_btnBuahMouseClicked
 
-    game.setVisible(true);
-    }//GEN-LAST:event_btnMenuMouseClicked
-
-    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+    private void btnBuahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnMenuActionPerformed
+    }//GEN-LAST:event_btnBuahActionPerformed
+
+    private void btnHewanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHewanMouseClicked
+        // TODO add your handling code here:
+        ThemeDAO themeDAO = new ThemeDAO();
+        theme selectedTheme = themeDAO.getThemeByName("Hewan");
+        GameEngine game = new GameEngine(
+            selectedLevel.getIdLevel(),
+            selectedTheme.getNamaTheme(),
+            selectedTheme.getFolderPath(),
+            selectedLevel.getBaris(),
+            selectedLevel.getKolom(),
+            selectedLevel.getWaktuDetik()
+        );
+        game.setVisible(true);     
+        
+    }//GEN-LAST:event_btnHewanMouseClicked
+
+    private void btnHewanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHewanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHewanActionPerformed
+
+    private void btnSedangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSedangMouseClicked
+        // TODO add your handling code here:
+        selectedLevel = levelDAO.getLevelById(2);
+
+        JOptionPane.showMessageDialog(this,
+        "Level Sedang dipilih");
+    }//GEN-LAST:event_btnSedangMouseClicked
+
+    private void btnSedangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSedangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSedangActionPerformed
+
+    private void btnSulitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSulitMouseClicked
+        // TODO add your handling code here:
+        selectedLevel = levelDAO.getLevelById(3);
+
+        JOptionPane.showMessageDialog(this,
+        "Level Sulit dipilih");
+    }//GEN-LAST:event_btnSulitMouseClicked
+
+    private void btnSulitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSulitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSulitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,8 +350,13 @@ public class MenuPemain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnBuah;
+    private javax.swing.JButton btnHewan;
+    private javax.swing.JButton btnMudah;
+    private javax.swing.JButton btnSedang;
+    private javax.swing.JButton btnSulit;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
