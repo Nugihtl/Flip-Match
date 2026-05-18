@@ -26,10 +26,12 @@ import java.util.Map;
 import javax.swing.Timer;
 import java.util.List;
 import javax.imageio.ImageIO;
+
 /**
  *
  * @author Siti Amalia Putri
- */public class GameEngine extends JFrame {
+ */
+public class GameEngine extends JFrame {
 
     private final int idLevel;
     private final String themeName;
@@ -85,28 +87,28 @@ import javax.imageio.ImageIO;
         loadThemeAndBuildBoard();
         startCountdown();
     }
-    
+
     private void setCardSize() {
 
-        if(rows == 4 && cols == 4) {
+        if (rows == 4 && cols == 4) {
 
             cardWidth = 150;
             cardHeight = 210;
 
-        } else if(rows == 4 && cols == 5) {
+        } else if (rows == 4 && cols == 5) {
 
             cardWidth = 120;
             cardHeight = 170;
 
-        } else if(rows == 6 && cols == 6) {
+        } else if (rows == 6 && cols == 6) {
 
             cardWidth = 80;
             cardHeight = 120;
-            
+
         } else {
-            
-        cardWidth = 100;
-        cardHeight = 140;
+
+            cardWidth = 100;
+            cardHeight = 140;
         }
     }
 
@@ -231,8 +233,8 @@ import javax.imageio.ImageIO;
 
             try (var stream = Files.list(folder)) {
                 stream.filter(Files::isRegularFile)
-                      .filter(this::isImageFile)
-                      .forEach(path -> result.add(path.toString()));
+                        .filter(this::isImageFile)
+                        .forEach(path -> result.add(path.toString()));
             }
 
         } catch (Exception e) {
@@ -403,47 +405,20 @@ import javax.imageio.ImageIO;
         if (gameEnded) {
             return;
         }
-
         gameEnded = true;
-
         if (countdownTimer != null) {
             countdownTimer.stop();
         }
-
         setBoardEnabled(false);
 
-        if (win) {
-        int displayScore = calculateDisplayScore();
-
-        boolean saved = false;
-
-        if (Session.idUser > 0) {
-            saved = scoreDAO.insert(
-                    Session.idUser,
-                    idLevel,
-                    timeLeft,
-                    moves
-            );
+        int displayScore = win ? calculateDisplayScore() : 0;
+        if (win && Session.idUser > 0) {
+            scoreDAO.insert(Session.idUser, idLevel, timeLeft, moves);
         }
 
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Selamat! Kamu menang.\n"
-                    + "Moves: " + moves + "\n"
-                    + "Time left: " + timeLeft + "s\n"
-                    + "Score: " + displayScore
-                    + (saved ? "\nSkor tersimpan." : "\nSkor tidak tersimpan."),
-                    "Menang",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-        } else {
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Waktu habis. Kamu kalah!",
-                    "Kalah",
-                    JOptionPane.WARNING_MESSAGE
-            );
-        }
+        SwingUtilities.invokeLater(() -> {
+            new app.score.FormScore(win, moves, timeLeft, displayScore, idLevel).setVisible(true);
+        });
     }
 
     private int calculateDisplayScore() {

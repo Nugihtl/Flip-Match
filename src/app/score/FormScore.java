@@ -12,13 +12,22 @@ public class FormScore extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormScore.class.getName());
     private ScoreDAO scoreDAO = new ScoreDAO();
+    private int idLevel;
 
     /**
      * Creates new form FormScore
      */
-    public FormScore() {
+    public FormScore(boolean win, int moves, int timeLeft, int score, int idLevel) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.idLevel = idLevel;
+
+        lblUcapan.setText(win ? "Selamat! Kamu Menang" : "Waktu Habis!");
+        lblmoves.setText("Moves: " + moves);
+        lbltimeleft.setText("Time left: " + timeLeft + "s");
+        lblskor.setText("Score: " + score);
+        lbllevel.setText("Level " + idLevel);
+
         muatDataTabel();
     }
 
@@ -30,16 +39,16 @@ public class FormScore extends javax.swing.JFrame {
         model.addColumn("Skor");
         model.addColumn("Tanggal");
 
-        jTable1.setModel(model);
-        jTable1.setDefaultEditor(Object.class, null); // non-editable
+        top5table.setModel(model);
+        top5table.setDefaultEditor(Object.class, null); // non-editable
 
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(80);   
-        jTable1.getColumnModel().getColumn(1).setPreferredWidth(200);  
-        jTable1.getColumnModel().getColumn(2).setPreferredWidth(120);  
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(80);  
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(150);
+        top5table.getColumnModel().getColumn(0).setPreferredWidth(80);
+        top5table.getColumnModel().getColumn(1).setPreferredWidth(200);
+        top5table.getColumnModel().getColumn(2).setPreferredWidth(120);
+        top5table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        top5table.getColumnModel().getColumn(4).setPreferredWidth(150);
 
-        java.util.List<Score> dataScore = scoreDAO.getTop5();
+        java.util.List<Score> dataScore = scoreDAO.getTop5(idLevel);
         String[] medali = {"1", "2", "3", "4", "5"};
         int i = 0;
         for (Score s : dataScore) {
@@ -63,14 +72,18 @@ public class FormScore extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        lbSkor = new javax.swing.JLabel();
-        lbSkor1 = new javax.swing.JLabel();
+        top5table = new javax.swing.JTable();
+        btncontinue = new javax.swing.JButton();
+        lblUcapan = new javax.swing.JLabel();
+        lblmoves = new javax.swing.JLabel();
+        lbltimeleft = new javax.swing.JLabel();
+        lblskor = new javax.swing.JLabel();
+        lblleadborad = new javax.swing.JLabel();
+        lbllevel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        top5table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -81,82 +94,92 @@ public class FormScore extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(top5table);
 
-        jButton1.setText("Continue");
-        jButton1.setActionCommand("btnContinue");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btncontinue.setBackground(new java.awt.Color(102, 51, 0));
+        btncontinue.setForeground(new java.awt.Color(255, 255, 255));
+        btncontinue.setText("Continue");
+        btncontinue.setActionCommand("btnContinue");
+        btncontinue.addActionListener(this::btncontinueActionPerformed);
 
-        lbSkor.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        lbSkor.setText("Skor");
+        lblUcapan.setBackground(new java.awt.Color(204, 255, 204));
+        lblUcapan.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        lblUcapan.setText("Ucapan");
 
-        lbSkor1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        lbSkor1.setText("Skor Kamu");
+        lblmoves.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblmoves.setText("Moves:");
+
+        lbltimeleft.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lbltimeleft.setText("Time left:");
+
+        lblskor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblskor.setText("Score");
+
+        lblleadborad.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblleadborad.setText("Leaderboard Top 5");
+
+        lbllevel.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lbllevel.setText("Level Mudah");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 39, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(266, 266, 266))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(273, 273, 273)
+                .addGap(0, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbSkor)
-                    .addComponent(lbSkor1))
+                    .addComponent(lblmoves)
+                    .addComponent(lblskor)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(lblleadborad)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lbllevel))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbltimeleft)
+                    .addComponent(lblUcapan))
+                .addGap(48, 48, 48))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(288, 288, 288)
+                .addComponent(btncontinue)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(lbSkor)
-                .addGap(33, 33, 33)
-                .addComponent(lbSkor1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(lblUcapan)
+                .addGap(30, 30, 30)
+                .addComponent(lblmoves)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbltimeleft)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblskor)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(19, 19, 19))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbllevel)
+                    .addComponent(lblleadborad, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncontinue)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btncontinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinueActionPerformed
         // TODO add your handling code here:
         app.auth.MenuPemain menu = new app.auth.MenuPemain();
         menu.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btncontinueActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
         /* Create and display the form */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -169,14 +192,18 @@ public class FormScore extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        java.awt.EventQueue.invokeLater(() -> new FormScore().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FormScore(true, 3, 53, 715, 1).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btncontinue;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lbSkor;
-    private javax.swing.JLabel lbSkor1;
+    private javax.swing.JLabel lblUcapan;
+    private javax.swing.JLabel lblleadborad;
+    private javax.swing.JLabel lbllevel;
+    private javax.swing.JLabel lblmoves;
+    private javax.swing.JLabel lblskor;
+    private javax.swing.JLabel lbltimeleft;
+    private javax.swing.JTable top5table;
     // End of variables declaration//GEN-END:variables
 }
