@@ -17,17 +17,19 @@ public class ScoreDAO {
         conn = KoneksiDB.getKoneksi();
     }
 
-    // ── READ: Ambil top 5 skor tertinggi ─────────────────────────────────────
+    // ── READ: Ambil top 5 skor tertinggi dengan rumus tersinkronisasi ────────
     public List<Score> getTop5(int idLevel) {
         List<Score> list = new ArrayList<>();
+        // Rumus disamakan dengan GameEngine: GREATEST(0, Base + TimeBonus - MovePenalty)
         String sql = "SELECT s.id_score, u.nama_lengkap, l.nama_level, "
-                + "(s.waktu_selesai * 100) - (s.jumlah_langkah * 10) AS skor, "
+                + "GREATEST(0, (((l.baris * l.kolom) / 2) * 100) + (s.waktu_selesai * 10) - (s.jumlah_langkah * 5)) AS skor, "
                 + "s.tanggal_main "
                 + "FROM tb_score s "
                 + "JOIN tb_user u ON s.id_user = u.id_user "
                 + "JOIN tb_level l ON s.id_level = l.id_level "
                 + "WHERE s.id_level = ? "
                 + "ORDER BY skor DESC LIMIT 5";
+                
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setInt(1, idLevel);
             ResultSet rs = pst.executeQuery();
@@ -48,15 +50,15 @@ public class ScoreDAO {
 
     // ── CREATE: Insert skor baru ──────────────────────────────────────────────
     public boolean insert(int idUser, int idLevel, int waktuSelesai, int jumlahLangkah) {
-        int skorBaru = hitungSkor(waktuSelesai, jumlahLangkah);
+        int skorBaru = hitungSkorRelatif(waktuSelesai, jumlahLangkah);
         int skorLama = getSkorPemain(idUser, idLevel);
 
-        if (skorLama >= 0) {
-            // UPDATE jika skor baru lebih tinggi
+        if (skorLama >= -999999) { // Cek apakah pemain sudah memiliki data
+            // UPDATE jika skor baru lebih tinggi secara relatif
             if (skorBaru > skorLama) {
                 return update(idUser, idLevel, waktuSelesai, jumlahLangkah);
             } else {
-                return true; // skor lama lebih baik, tidak perlu update
+                return true; 
             }
         }
 
@@ -70,7 +72,7 @@ public class ScoreDAO {
             ps.setInt(4, jumlahLangkah);
             ps.executeUpdate();
 
-            hapusSkorTerkecil(idLevel); // DELETE jika sudah lebih dari 5
+            hapusSkorTerkecil(idLevel); 
             return true;
         } catch (SQLException e) {
             System.out.println("Gagal insert skor: " + e.getMessage());
@@ -103,7 +105,7 @@ public class ScoreDAO {
                 + "  SELECT id_score FROM ("
                 + "    SELECT s.id_score FROM tb_score s "
                 + "    WHERE s.id_level = ? "
-                + "    ORDER BY (s.waktu_selesai * 100) - (s.jumlah_langkah * 10) DESC "
+                + "    ORDER BY (s.waktu_selesai * 10) - (s.jumlah_langkah * 5) DESC "
                 + "    LIMIT 5"
                 + "  ) AS top5"
                 + ")";
@@ -129,7 +131,7 @@ public class ScoreDAO {
         return 0;
     }
 
-    // ── Helper: Ambil skor pemain yang sudah ada (-1 jika belum ada) ──────────
+    // ── Helper: Ambil skor relatif pemain yang sudah ada ──────────
     private int getSkorPemain(int idUser, int idLevel) {
         String sql = "SELECT waktu_selesai, jumlah_langkah FROM tb_score "
                 + "WHERE id_user=? AND id_level=?";
@@ -140,16 +142,18 @@ public class ScoreDAO {
             if (rs.next()) {
                 int waktu = rs.getInt("waktu_selesai");
                 int langkah = rs.getInt("jumlah_langkah");
-                return hitungSkor(waktu, langkah);
+                return hitungSkorRelatif(waktu, langkah);
             }
         } catch (SQLException e) {
             System.out.println("Gagal cek skor pemain: " + e.getMessage());
         }
-        return -1; // belum ada data
+        return -9999999; // Indikator belum ada data
     }
 
-    // ── Helper: Rumus hitung skor (sama dengan GameEngine) ───────────────────
-    private int hitungSkor(int waktuSelesai, int jumlahLangkah) {
-        return (waktuSelesai * 100) - (jumlahLangkah * 10);
+    // ── Helper: Rumus hitung skor (untuk komparasi pemecahan rekor) ───────────
+    private int hitungSkorRelatif(int waktuSelesai, int jumlahLangkah) {
+        // Karena Base Score untuk level yang sama adalah konstan, 
+        // kita hanya perlu mengkomparasi nilai bonus dan pinalti.
+        return (waktuSelesai * 10) - (jumlahLangkah * 5);
     }
 }

@@ -19,15 +19,13 @@ public class MenuAdmin extends javax.swing.JFrame {
      */
     public MenuAdmin() {
         initComponents();
-        
-        setTitle("Flip & Match");
+        this.setLocationRelativeTo(null);
+        setTitle("Flip & Match - Admin Menu");
 
         java.net.URL logoURL = getClass().getResource("logo-match.png");
-
         if (logoURL != null) {
-            ImageIcon icon = new ImageIcon(logoURL);
-            // Resize ke 64x64
-            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            javax.swing.ImageIcon icon = new javax.swing.ImageIcon(logoURL);
+            java.awt.Image scaledImage = icon.getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_SMOOTH);
             setIconImage(scaledImage);
         }
     }
@@ -44,7 +42,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        btnMenu = new javax.swing.JButton();
+        btnKelolaTheme = new javax.swing.JButton();
+        btnKelolaLevel = new javax.swing.JButton();
+        btnKelolaScore = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        btnKelolaUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,19 +62,83 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(102, 51, 0));
         jLabel1.setText("Selamat Datang Admin");
 
-        btnMenu.setBackground(new java.awt.Color(102, 51, 0));
-        btnMenu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
-        btnMenu.setForeground(new java.awt.Color(255, 255, 255));
-        btnMenu.setText("Menu Admin");
-        btnMenu.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnKelolaTheme.setBackground(new java.awt.Color(102, 51, 0));
+        btnKelolaTheme.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnKelolaTheme.setForeground(new java.awt.Color(255, 255, 255));
+        btnKelolaTheme.setText("Kelola Tema");
+        btnKelolaTheme.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnKelolaTheme.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnMenuMouseClicked(evt);
+                btnKelolaThemeMouseClicked(evt);
             }
         });
-        btnMenu.addActionListener(new java.awt.event.ActionListener() {
+        btnKelolaTheme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuActionPerformed(evt);
+                btnKelolaThemeActionPerformed(evt);
+            }
+        });
+
+        btnKelolaLevel.setBackground(new java.awt.Color(102, 51, 0));
+        btnKelolaLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnKelolaLevel.setForeground(new java.awt.Color(255, 255, 255));
+        btnKelolaLevel.setText("Kelola Level");
+        btnKelolaLevel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnKelolaLevel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKelolaLevelMouseClicked(evt);
+            }
+        });
+        btnKelolaLevel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKelolaLevelActionPerformed(evt);
+            }
+        });
+
+        btnKelolaScore.setBackground(new java.awt.Color(102, 51, 0));
+        btnKelolaScore.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnKelolaScore.setForeground(new java.awt.Color(255, 255, 255));
+        btnKelolaScore.setText("Kelola Score");
+        btnKelolaScore.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnKelolaScore.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKelolaScoreMouseClicked(evt);
+            }
+        });
+        btnKelolaScore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKelolaScoreActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setBackground(new java.awt.Color(102, 51, 0));
+        btnLogout.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setText("Logout");
+        btnLogout.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogoutMouseClicked(evt);
+            }
+        });
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        btnKelolaUser.setBackground(new java.awt.Color(102, 51, 0));
+        btnKelolaUser.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        btnKelolaUser.setForeground(new java.awt.Color(255, 255, 255));
+        btnKelolaUser.setText("Kelola User");
+        btnKelolaUser.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnKelolaUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKelolaUserMouseClicked(evt);
+            }
+        });
+        btnKelolaUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKelolaUserActionPerformed(evt);
             }
         });
 
@@ -81,22 +147,32 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(199, 199, 199)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnKelolaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnKelolaLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnKelolaTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(223, Short.MAX_VALUE))
+                    .addComponent(btnKelolaScore, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(221, 221, 221)
+                .addGap(92, 92, 92)
                 .addComponent(jLabel1)
-                .addGap(108, 108, 108)
-                .addComponent(btnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(234, Short.MAX_VALUE))
+                .addGap(63, 63, 63)
+                .addComponent(btnKelolaUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnKelolaTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnKelolaLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnKelolaScore, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(297, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -104,9 +180,9 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(360, Short.MAX_VALUE)
+                .addContainerGap(369, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(360, 360, 360))
+                .addGap(351, 351, 351))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,13 +206,54 @@ public class MenuAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+    private void btnKelolaThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKelolaThemeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnMenuActionPerformed
+        new app.theme.FormTheme().setVisible(true);
+    }//GEN-LAST:event_btnKelolaThemeActionPerformed
 
-    private void btnMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMenuMouseClicked
+    private void btnKelolaThemeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKelolaThemeMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnMenuMouseClicked
+    }//GEN-LAST:event_btnKelolaThemeMouseClicked
+
+    private void btnKelolaLevelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKelolaLevelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKelolaLevelMouseClicked
+
+    private void btnKelolaLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKelolaLevelActionPerformed
+        // TODO add your handling code here:
+        new app.level.DashboardLevel().setVisible(true);
+    }//GEN-LAST:event_btnKelolaLevelActionPerformed
+
+    private void btnKelolaScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKelolaScoreMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKelolaScoreMouseClicked
+
+    private void btnKelolaScoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKelolaScoreActionPerformed
+        // TODO add your handling code here:
+        new app.score.FormScore(false, 0, 0, 0, 1).setVisible(true);
+    }//GEN-LAST:event_btnKelolaScoreActionPerformed
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutMouseClicked
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        int opsi = javax.swing.JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin keluar?", "Konfirmasi", javax.swing.JOptionPane.YES_NO_OPTION);
+        if (opsi == javax.swing.JOptionPane.YES_OPTION) {
+            new app.auth.LoginForm().setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnKelolaUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKelolaUserMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKelolaUserMouseClicked
+
+    private void btnKelolaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKelolaUserActionPerformed
+        // TODO add your handling code here:
+        new app.user.FormUser().setVisible(true);
+    }//GEN-LAST:event_btnKelolaUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,7 +291,11 @@ public class MenuAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnKelolaLevel;
+    private javax.swing.JButton btnKelolaScore;
+    private javax.swing.JButton btnKelolaTheme;
+    private javax.swing.JButton btnKelolaUser;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

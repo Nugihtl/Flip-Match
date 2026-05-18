@@ -21,7 +21,29 @@ public class LevelDAO {
     public LevelDAO() {
         this.conn = KoneksiDB.getKoneksi();
     }
-
+    
+    public java.util.List<Level> getAllLevel() {
+        java.util.List<Level> list = new java.util.ArrayList<>();
+        String sql = "SELECT id_level, nama_level, baris, kolom, waktu_detik FROM tb_level";
+        
+        try (java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+             java.sql.ResultSet rs = pst.executeQuery()) {
+             
+            while (rs.next()) {
+                Level l = new Level();
+                l.setIdLevel(rs.getInt("id_level"));
+                l.setNamaLevel(rs.getString("nama_level"));
+                l.setBaris(rs.getInt("baris"));
+                l.setKolom(rs.getInt("kolom"));
+                l.setWaktuDetik(rs.getInt("waktu_detik"));
+                list.add(l);
+            }
+        } catch (Exception e) {
+            System.out.println("Gagal mengambil semua level: " + e.getMessage());
+        }
+        return list;
+    }
+    
     public List<Level> getAll() {
         List<Level> list = new ArrayList<>();
         String sql = "SELECT l.*, t.nama_theme FROM tb_level l " +
