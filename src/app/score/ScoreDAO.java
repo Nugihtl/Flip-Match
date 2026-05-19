@@ -53,7 +53,7 @@ public class ScoreDAO {
         int skorBaru = hitungSkorRelatif(waktuSelesai, jumlahLangkah);
         int skorLama = getSkorPemain(idUser, idLevel);
 
-        if (skorLama >= -999999) { // Cek apakah pemain sudah memiliki data
+        if (skorLama >= -999999) { 
             // UPDATE jika skor baru lebih tinggi secara relatif
             if (skorBaru > skorLama) {
                 return update(idUser, idLevel, waktuSelesai, jumlahLangkah);

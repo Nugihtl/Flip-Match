@@ -114,7 +114,7 @@ public class GameEngine extends JFrame {
 
     private void initUI() {
         setTitle("Flip & Match");
-        java.net.URL logoURL = getClass().getResource("logo-match.png");
+        java.net.URL logoURL = getClass().getResource("app/auth/logo-match.png");
         if (logoURL != null) {
             ImageIcon icon = new ImageIcon(logoURL);
             // Resize ke 64x64
@@ -394,6 +394,7 @@ public class GameEngine extends JFrame {
             lblTime.setText("Time: " + timeLeft + "s");
 
             if (timeLeft <= 0) {
+                timeLeft = 0;
                 endGame(false);
             }
         });
@@ -410,8 +411,10 @@ public class GameEngine extends JFrame {
             countdownTimer.stop();
         }
         setBoardEnabled(false);
+        
+        System.out.println("timeLeft: " + timeLeft + ", moves: " + moves + ", totalPairs: " + totalPairs);
 
-        int displayScore = win ? calculateDisplayScore() : 0;
+        int displayScore = calculateDisplayScore();
         if (win && Session.idUser > 0) {
             scoreDAO.insert(Session.idUser, idLevel, timeLeft, moves);
         }
