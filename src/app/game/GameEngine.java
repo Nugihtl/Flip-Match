@@ -85,57 +85,69 @@ public class GameEngine extends JFrame {
         setCardSize();
         initUI();
         loadThemeAndBuildBoard();
+        setLocationRelativeTo(null);
+        setVisible(true);
         startCountdown();
     }
 
     private void setCardSize() {
+        int screenHeight = java.awt.GraphicsEnvironment
+                .getLocalGraphicsEnvironment()
+                .getMaximumWindowBounds()
+                .height;
 
         if (rows == 4 && cols == 4) {
-
-            cardWidth = 150;
+            cardWidth  = 150;
             cardHeight = 210;
-
         } else if (rows == 4 && cols == 5) {
-
-            cardWidth = 120;
+            cardWidth  = 120;
             cardHeight = 170;
-
         } else if (rows == 6 && cols == 6) {
-
-            cardWidth = 80;
+            cardWidth  = 80;
             cardHeight = 120;
-
         } else {
-
-            cardWidth = 100;
+            cardWidth  = 100;
             cardHeight = 140;
+        }
+
+        int topH     = 170;
+        int maxCardH = (screenHeight - topH) / rows - 8;
+        if (cardHeight > maxCardH) {
+            double ratio = (double) cardWidth / cardHeight;
+            cardHeight = maxCardH;
+            cardWidth  = (int) (cardHeight * ratio);
         }
     }
 
     private void initUI() {
+
         setTitle("Flip & Match");
+
         java.net.URL logoURL = getClass().getResource("app/auth/logo-match.png");
         if (logoURL != null) {
             ImageIcon icon = new ImageIcon(logoURL);
-            // Resize ke 64x64
             Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
             setIconImage(scaledImage);
         }
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1100, 800);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout(10, 10));
+
+        int frameWidth  = (cols * (cardWidth + 8)) + 40;
+        int frameHeight = (rows * (cardHeight + 8)) + 170;
+
+        setSize(frameWidth, frameHeight);
         setResizable(false);
+        setLayout(new BorderLayout(10, 10));
 
         topPanel = new JPanel(new GridLayout(2, 3, 10, 5));
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         topPanel.setBackground(new Color(245, 245, 245));
 
         lblPlayer = new JLabel("Player: " + Session.username);
-        lblTheme = new JLabel("Theme: " + themeName);
-        lblLevel = new JLabel("Level: " + rows + "x" + cols);
-        lblTime = new JLabel("Time: " + initialTime + "s");
-        lblMoves = new JLabel("Moves: 0");
+        lblTheme  = new JLabel("Theme: " + themeName);
+        lblLevel  = new JLabel("Level: " + rows + "x" + cols);
+        lblTime   = new JLabel("Time: " + initialTime + "s");
+        lblMoves  = new JLabel("Moves: 0");
 
         Font f = new Font("SansSerif", Font.BOLD, 16);
         lblPlayer.setFont(f);
@@ -149,18 +161,16 @@ public class GameEngine extends JFrame {
         topPanel.add(lblLevel);
         topPanel.add(lblTime);
         topPanel.add(lblMoves);
-        topPanel.add(new JLabel("")); // spacer
+        topPanel.add(new JLabel(""));
 
         boardPanel = new JPanel(new GridLayout(rows, cols, 8, 8));
         boardPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        boardPanel.setBackground(Color.WHITE);
+        boardPanel.setBackground(new Color(245, 245, 245));
 
         add(topPanel, BorderLayout.NORTH);
         add(boardPanel, BorderLayout.CENTER);
 
         backIcon = createBackIcon(cardWidth, cardHeight);
-
-        setVisible(true);
     }
 
     private void loadThemeAndBuildBoard() {
@@ -197,11 +207,12 @@ public class GameEngine extends JFrame {
             btn.setPreferredSize(new Dimension(cardWidth, cardHeight));
             btn.setMargin(new Insets(0, 0, 0, 0));
             btn.setFocusable(false);
-            btn.setBackground(Color.WHITE);
             btn.setIcon(backIcon);
+            btn.setBorderPainted(false);
+            btn.setContentAreaFilled(false);
+            btn.setOpaque(false);
 
             GameCard card = new GameCard(imagePath, btn);
-
             btn.addActionListener((ActionEvent e) -> handleCardClick(card));
 
             cards.add(card);
@@ -216,9 +227,7 @@ public class GameEngine extends JFrame {
         List<String> result = new ArrayList<>();
 
         try {
-            // Bersihkan slash di depan kalau ada
             String cleanPath = folderPath.startsWith("/") ? folderPath.substring(1) : folderPath;
-
             java.net.URL folderURL = getClass().getClassLoader().getResource(cleanPath);
 
             if (folderURL == null) {
@@ -350,19 +359,23 @@ public class GameEngine extends JFrame {
     private ImageIcon createBackIcon(int w, int h) {
         BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         java.awt.Graphics2D g2 = img.createGraphics();
+        g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,
+                java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
 
+        // Background kartu hijau
         g2.setColor(new Color(60, 120, 80));
-        g2.fillRoundRect(0, 0, w, h, 20, 20);
+        g2.fillRoundRect(0, 0, w, h, 24, 24);
 
+        // "?" putih di tengah
         g2.setColor(Color.WHITE);
-        g2.setFont(new Font("SansSerif", Font.BOLD, 42));
+        int fontSize = (int) (w * 0.45);
+        g2.setFont(new Font("SansSerif", Font.BOLD, fontSize));
         String text = "?";
-        int textWidth = g2.getFontMetrics().stringWidth(text);
-        int textHeight = g2.getFontMetrics().getAscent();
+        int tw = g2.getFontMetrics().stringWidth(text);
+        int th = g2.getFontMetrics().getAscent();
+        g2.drawString(text, (w - tw) / 2, (h + th) / 2 - fontSize / 6);
 
-        g2.drawString(text, (w - textWidth) / 2, (h + textHeight) / 2 - 10);
         g2.dispose();
-
         return new ImageIcon(img);
     }
 
@@ -389,7 +402,6 @@ public class GameEngine extends JFrame {
             if (gameEnded) {
                 return;
             }
-
             timeLeft--;
             lblTime.setText("Time: " + timeLeft + "s");
 
@@ -411,7 +423,7 @@ public class GameEngine extends JFrame {
             countdownTimer.stop();
         }
         setBoardEnabled(false);
-        
+
         System.out.println("timeLeft: " + timeLeft + ", moves: " + moves + ", totalPairs: " + totalPairs);
 
         int displayScore = calculateDisplayScore();
@@ -432,7 +444,6 @@ public class GameEngine extends JFrame {
     }
 
     public static void main(String[] args) {
-
         JOptionPane.showMessageDialog(null, "Panggil GameEngine dari MenuPemain.");
     }
 }
