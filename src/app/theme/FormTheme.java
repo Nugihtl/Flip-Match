@@ -6,10 +6,12 @@ package app.theme;
 
 import app.auth.MenuAdmin;
 import app.config.KoneksiDB;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -28,6 +30,17 @@ public class FormTheme extends javax.swing.JFrame {
      */
     public FormTheme() {
         initComponents();
+        
+              setTitle("Flip & Match");
+
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
+        }
     
         tfID.setEditable(false);
 
