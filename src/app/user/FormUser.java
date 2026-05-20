@@ -5,6 +5,8 @@
 package app.user;
 
 import app.auth.MenuAdmin;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 /**
@@ -20,6 +22,17 @@ public class FormUser extends javax.swing.JFrame {
      */
     public FormUser() {
         initComponents();    
+        
+              setTitle("Flip & Match");
+
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
+        }
         
         model = new DefaultTableModel();
 
@@ -281,7 +294,7 @@ public class FormUser extends javax.swing.JFrame {
 
     private void tabelDaftarUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDaftarUserMouseClicked
         // TODO add your handling code here:
-               int row = tabelDaftarUser.getSelectedRow();
+        int row = tabelDaftarUser.getSelectedRow();
 
         if (row != -1) {
 

@@ -9,6 +9,8 @@ import app.game.GameEngine;
 import app.level.Level;
 import app.theme.ThemeDAO;
 import app.theme.theme;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -25,6 +27,16 @@ public class PilihTema extends javax.swing.JFrame {
         public PilihTema(Level level) {
 
         initComponents();
+              setTitle("Flip & Match");
+
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
+        }
 
         this.selectedLevel = level;
 

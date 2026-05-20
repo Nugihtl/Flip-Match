@@ -4,6 +4,9 @@
  */
 package app.level;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author nugih
@@ -32,6 +35,16 @@ public class FormLevelInput extends javax.swing.JFrame {
     
     public FormLevelInput() {
         initComponents();
+              setTitle("Flip & Match");
+
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
+        }
     }
     
     private void populateThemeComboBox() {
@@ -87,7 +100,6 @@ public class FormLevelInput extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

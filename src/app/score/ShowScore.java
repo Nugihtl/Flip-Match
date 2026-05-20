@@ -5,7 +5,9 @@
 package app.score;
 
 import app.auth.MenuAdmin;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +28,17 @@ public class ShowScore extends javax.swing.JFrame {
     public ShowScore() {
         initComponents();
 
+              setTitle("Flip & Match");
+
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
+        }
+        
         scoreDAO = new ScoreDAO();
 
         // Buat header tabel
@@ -42,18 +55,12 @@ public class ShowScore extends javax.swing.JFrame {
         loadDataScore();
     }
 
-    public ShowScore(boolean b, int i, int i0, int i1, int i2) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
      private void loadDataScore() {
 
         model.setRowCount(0);
 
-        // contoh id level = 1
-        int idLevel = 1;
-
-        List<Score> list = scoreDAO.getAllScore(idLevel);
+        List<Score> list = scoreDAO.getAllScore();
 
         for (Score s : list) {
 

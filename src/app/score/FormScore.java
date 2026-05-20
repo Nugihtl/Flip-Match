@@ -4,6 +4,9 @@
  */
 package app.score;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author ASUS
@@ -28,6 +31,17 @@ public class FormScore extends javax.swing.JFrame {
         lblskor.setText("Score: " + score);
         lbllevel.setText("Level " + idLevel);
 
+              setTitle("Flip & Match");
+
+        java.net.URL logoURL = getClass().getResource("logo-match.png");
+
+        if (logoURL != null) {
+            ImageIcon icon = new ImageIcon(logoURL);
+            // Resize ke 64x64
+            Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+            setIconImage(scaledImage);
+        }
+        
         muatDataTabel();
     }
 
