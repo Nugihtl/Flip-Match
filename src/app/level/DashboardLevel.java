@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package app.level;
+import app.auth.MenuAdmin;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -60,12 +61,15 @@ public class DashboardLevel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblJudulDaftarLevel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         btnHapus = new javax.swing.JButton();
         btnTambahLevel = new javax.swing.JButton();
         btnEditLevel = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        lblBg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
@@ -74,29 +78,55 @@ public class DashboardLevel extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblJudulDaftarLevel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblJudulDaftarLevel.setText("Daftar Level");
-        getContentPane().add(lblJudulDaftarLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, -1, -1));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrowfiks.png"))); // NOI18N
+        jLabel2.setMaximumSize(new java.awt.Dimension(111, 53));
+        jLabel2.setMinimumSize(new java.awt.Dimension(111, 53));
+        jLabel2.setPreferredSize(new java.awt.Dimension(111, 53));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 60, 40));
 
-        btnHapus.setBackground(new java.awt.Color(255, 51, 51));
-        btnHapus.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        jLabel3.setBackground(new java.awt.Color(204, 255, 204));
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 51, 0));
+        jLabel3.setText("Kelola Level");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 220, -1));
+
+        jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 102, 0));
+        jLabel4.setText("Daftar Level");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, -1, 30));
+
+        btnHapus.setBackground(new java.awt.Color(255, 0, 51));
+        btnHapus.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnHapus.setForeground(new java.awt.Color(255, 255, 255));
         btnHapus.setText("Hapus");
+        btnHapus.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnHapus.addActionListener(this::btnHapusActionPerformed);
-        getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, 160, 30));
+        getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 280, 110, 30));
 
-        btnTambahLevel.setBackground(new java.awt.Color(153, 255, 153));
-        btnTambahLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        btnTambahLevel.setBackground(new java.awt.Color(0, 204, 102));
+        btnTambahLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnTambahLevel.setForeground(new java.awt.Color(255, 255, 255));
         btnTambahLevel.setText("Tambah");
+        btnTambahLevel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnTambahLevel.setMaximumSize(new java.awt.Dimension(54, 21));
+        btnTambahLevel.setMinimumSize(new java.awt.Dimension(54, 21));
+        btnTambahLevel.setPreferredSize(new java.awt.Dimension(54, 21));
         btnTambahLevel.addActionListener(this::btnTambahLevelActionPerformed);
-        getContentPane().add(btnTambahLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 160, 30));
+        getContentPane().add(btnTambahLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 200, 110, 30));
 
-        btnEditLevel.setBackground(new java.awt.Color(174, 137, 23));
-        btnEditLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        btnEditLevel.setBackground(new java.awt.Color(255, 204, 51));
+        btnEditLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnEditLevel.setForeground(new java.awt.Color(255, 255, 255));
         btnEditLevel.setText("Edit");
+        btnEditLevel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnEditLevel.addActionListener(this::btnEditLevelActionPerformed);
-        getContentPane().add(btnEditLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, 160, 30));
+        getContentPane().add(btnEditLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 240, 110, 30));
 
-        jTable1.setBackground(new java.awt.Color(199, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -110,7 +140,10 @@ public class DashboardLevel extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, 320));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 550, 320));
+
+        lblBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bg2.png"))); // NOI18N
+        getContentPane().add(lblBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -167,6 +200,12 @@ public class DashboardLevel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditLevelActionPerformed
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        new MenuAdmin().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -196,8 +235,11 @@ public class DashboardLevel extends javax.swing.JFrame {
     private javax.swing.JButton btnEditLevel;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambahLevel;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel lblJudulDaftarLevel;
+    private javax.swing.JLabel lblBg;
     // End of variables declaration//GEN-END:variables
 }

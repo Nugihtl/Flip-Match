@@ -4,6 +4,7 @@
  */
 package app.theme;
 
+import app.auth.MenuAdmin;
 import app.config.KoneksiDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -85,8 +86,8 @@ public class FormTheme extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelDaftarTema = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -102,22 +103,33 @@ public class FormTheme extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         tfNamaTema = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        lblBg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 768));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 720));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 102, 0));
         jLabel4.setText("Daftar Tema");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrowfiks.png"))); // NOI18N
+        jLabel2.setMaximumSize(new java.awt.Dimension(111, 53));
+        jLabel2.setMinimumSize(new java.awt.Dimension(111, 53));
+        jLabel2.setPreferredSize(new java.awt.Dimension(111, 53));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 60, 40));
 
         tabelDaftarTema.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         tabelDaftarTema.setForeground(new java.awt.Color(102, 51, 0));
@@ -282,14 +294,17 @@ public class FormTheme extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(204, 255, 204));
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 51, 0));
-        jLabel3.setText("Manajemen Tema Kartu");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 50, 440, -1));
+        jLabel3.setText("Kelola Tema");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 220, -1));
+
+        lblBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bg2.png"))); // NOI18N
+        jPanel1.add(lblBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,6 +437,12 @@ public class FormTheme extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnHapusMouseClicked
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        new MenuAdmin().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -462,6 +483,7 @@ public class FormTheme extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBg;
     private javax.swing.JTable tabelDaftarTema;
     private javax.swing.JTextField tfFolderPath;
     private javax.swing.JTextField tfID;
