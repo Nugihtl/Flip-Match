@@ -71,6 +71,7 @@ public class FormScore extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         top5table = new javax.swing.JTable();
         btncontinue = new javax.swing.JButton();
@@ -80,8 +81,10 @@ public class FormScore extends javax.swing.JFrame {
         lblskor = new javax.swing.JLabel();
         lblleadborad = new javax.swing.JLabel();
         lbllevel = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         top5table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,81 +100,106 @@ public class FormScore extends javax.swing.JFrame {
         jScrollPane1.setViewportView(top5table);
 
         btncontinue.setBackground(new java.awt.Color(102, 51, 0));
+        btncontinue.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
         btncontinue.setForeground(new java.awt.Color(255, 255, 255));
         btncontinue.setText("Continue");
         btncontinue.setActionCommand("btnContinue");
+        btncontinue.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btncontinue.addActionListener(this::btncontinueActionPerformed);
 
         lblUcapan.setBackground(new java.awt.Color(204, 255, 204));
-        lblUcapan.setFont(new java.awt.Font("Verdana", 0, 18)); // NOI18N
+        lblUcapan.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         lblUcapan.setText("Ucapan");
 
-        lblmoves.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblmoves.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblmoves.setForeground(new java.awt.Color(102, 51, 0));
         lblmoves.setText("Moves:");
 
-        lbltimeleft.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lbltimeleft.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lbltimeleft.setForeground(new java.awt.Color(102, 51, 0));
         lbltimeleft.setText("Time left:");
 
-        lblskor.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblskor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblskor.setForeground(new java.awt.Color(102, 51, 0));
         lblskor.setText("Score");
 
-        lblleadborad.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lblleadborad.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblleadborad.setText("Leaderboard Top 5");
 
-        lbllevel.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        lbllevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lbllevel.setForeground(new java.awt.Color(0, 153, 0));
         lbllevel.setText("Level Mudah");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 46, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bg3.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblleadborad)
+                        .addGap(334, 334, 334)
+                        .addComponent(lbllevel))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblmoves)
-                    .addComponent(lblskor)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(lblleadborad)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbllevel))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lbltimeleft)
-                    .addComponent(lblUcapan))
-                .addGap(48, 48, 48))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(288, 288, 288)
-                .addComponent(btncontinue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblskor))
+                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblUcapan)
+                        .addGap(278, 278, 278))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btncontinue, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(257, 257, 257))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(lblUcapan)
-                .addGap(30, 30, 30)
+                .addGap(34, 34, 34)
                 .addComponent(lblmoves)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(lbltimeleft)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(lblskor)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbllevel)
-                    .addComponent(lblleadborad, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblleadborad, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(lbllevel)))
                 .addGap(11, 11, 11)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btncontinue)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btncontinue, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 420));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btncontinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinueActionPerformed
         // TODO add your handling code here:
-        app.auth.MenuPemain menu = new app.auth.MenuPemain();
+        app.auth.PilihLevel menu = new app.auth.PilihLevel();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btncontinueActionPerformed
@@ -197,6 +225,8 @@ public class FormScore extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncontinue;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblUcapan;
     private javax.swing.JLabel lblleadborad;

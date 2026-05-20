@@ -68,30 +68,33 @@ public class DashboardLevel extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblJudulDaftarLevel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblJudulDaftarLevel.setText("Daftar Level");
-        getContentPane().add(lblJudulDaftarLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, -1));
+        getContentPane().add(lblJudulDaftarLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, -1, -1));
 
         btnHapus.setBackground(new java.awt.Color(255, 51, 51));
         btnHapus.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(this::btnHapusActionPerformed);
-        getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 160, 30));
+        getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, 160, 30));
 
         btnTambahLevel.setBackground(new java.awt.Color(153, 255, 153));
         btnTambahLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         btnTambahLevel.setText("Tambah");
         btnTambahLevel.addActionListener(this::btnTambahLevelActionPerformed);
-        getContentPane().add(btnTambahLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 160, 30));
+        getContentPane().add(btnTambahLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, 160, 30));
 
         btnEditLevel.setBackground(new java.awt.Color(174, 137, 23));
         btnEditLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         btnEditLevel.setText("Edit");
         btnEditLevel.addActionListener(this::btnEditLevelActionPerformed);
-        getContentPane().add(btnEditLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 210, 160, 30));
+        getContentPane().add(btnEditLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, 160, 30));
 
         jTable1.setBackground(new java.awt.Color(199, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -107,7 +110,7 @@ public class DashboardLevel extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, 320));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, 320));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
