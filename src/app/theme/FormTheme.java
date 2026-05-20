@@ -104,6 +104,10 @@ public class FormTheme extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setSize(new java.awt.Dimension(1280, 720));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1024, 768));
@@ -113,7 +117,7 @@ public class FormTheme extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 102, 0));
         jLabel4.setText("Daftar Tema");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, 30));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, 30));
 
         tabelDaftarTema.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         tabelDaftarTema.setForeground(new java.awt.Color(102, 51, 0));
@@ -135,7 +139,7 @@ public class FormTheme extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelDaftarTema);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 600, 400));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 600, 400));
 
         jPanel2.setBackground(new java.awt.Color(204, 255, 204));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -168,7 +172,7 @@ public class FormTheme extends javax.swing.JFrame {
         });
         btnPilihFolder.addActionListener(this::btnPilihFolderActionPerformed);
 
-        btnTambah.setBackground(new java.awt.Color(102, 51, 0));
+        btnTambah.setBackground(new java.awt.Color(0, 204, 102));
         btnTambah.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         btnTambah.setForeground(new java.awt.Color(255, 255, 255));
         btnTambah.setText("Tambah");
@@ -180,7 +184,7 @@ public class FormTheme extends javax.swing.JFrame {
         });
         btnTambah.addActionListener(this::btnTambahActionPerformed);
 
-        btnEdit.setBackground(new java.awt.Color(102, 51, 0));
+        btnEdit.setBackground(new java.awt.Color(255, 204, 51));
         btnEdit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         btnEdit.setForeground(new java.awt.Color(255, 255, 255));
         btnEdit.setText("Edit");
@@ -192,7 +196,7 @@ public class FormTheme extends javax.swing.JFrame {
         });
         btnEdit.addActionListener(this::btnEditActionPerformed);
 
-        btnHapus.setBackground(new java.awt.Color(102, 51, 0));
+        btnHapus.setBackground(new java.awt.Color(255, 0, 51));
         btnHapus.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         btnHapus.setForeground(new java.awt.Color(255, 255, 255));
         btnHapus.setText("Hapus");
@@ -273,7 +277,7 @@ public class FormTheme extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 200, 450, 400));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 200, 450, 400));
 
         jLabel3.setBackground(new java.awt.Color(204, 255, 204));
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
@@ -285,7 +289,7 @@ public class FormTheme extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1240, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
