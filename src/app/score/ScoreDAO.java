@@ -47,6 +47,36 @@ public class ScoreDAO {
         }
         return list;
     }
+    
+        public List<Score> getAllScore(int idLevel) {
+        List<Score> list = new ArrayList<>();
+        // Rumus disamakan dengan GameEngine: GREATEST(0, Base + TimeBonus - MovePenalty)
+        String sql = "SELECT s.id_score, u.nama_lengkap, l.nama_level, "
+                + "GREATEST(0, (((l.baris * l.kolom) / 2) * 100) + (s.waktu_selesai * 10) - (s.jumlah_langkah * 5)) AS skor, "
+                + "s.tanggal_main "
+                + "FROM tb_score s "
+                + "JOIN tb_user u ON s.id_user = u.id_user "
+                + "JOIN tb_level l ON s.id_level = l.id_level "
+                + "WHERE s.id_level = ? "
+                + "ORDER BY skor DESC";
+                
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, idLevel);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Score s = new Score();
+                s.setIdScore(rs.getInt("id_score"));
+                s.setNamaLengkap(rs.getString("nama_lengkap"));
+                s.setNamaLevel(rs.getString("nama_level"));
+                s.setSkor(rs.getInt("skor"));
+                s.setTanggalMain(rs.getString("tanggal_main"));
+                list.add(s);
+            }
+        } catch (Exception e) {
+            System.out.println("Gagal ambil data: " + e.getMessage());
+        }
+        return list;
+    }
 
     // ── CREATE: Insert skor baru ──────────────────────────────────────────────
     public boolean insert(int idUser, int idLevel, int waktuSelesai, int jumlahLangkah) {

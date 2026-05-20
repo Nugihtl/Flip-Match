@@ -70,6 +70,8 @@ public class FormLevelInput extends javax.swing.JFrame {
     private void initComponents() {
 
         lblNamaLevel = new javax.swing.JLabel();
+        lblJudulBuatLevel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         txtJumlahBaris = new javax.swing.JTextField();
         txtNamaLevel = new javax.swing.JTextField();
         txtJumlahKolom = new javax.swing.JTextField();
@@ -77,118 +79,86 @@ public class FormLevelInput extends javax.swing.JFrame {
         btnSimpanLevel = new javax.swing.JButton();
         lblCbTema = new javax.swing.JLabel();
         lblJumlahKolom = new javax.swing.JLabel();
-        lblJudulBuatLevel = new javax.swing.JLabel();
         lblJumlahBaris = new javax.swing.JLabel();
         cbTheme = new javax.swing.JComboBox<>();
         lblWaktu1 = new javax.swing.JLabel();
+        lblBg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
         setPreferredSize(new java.awt.Dimension(1280, 720));
         setSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNamaLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblNamaLevel.setText("Nama Level:");
+        getContentPane().add(lblNamaLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, -1, 30));
 
+        lblJudulBuatLevel.setBackground(new java.awt.Color(204, 255, 204));
+        lblJudulBuatLevel.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lblJudulBuatLevel.setForeground(new java.awt.Color(102, 51, 0));
+        lblJudulBuatLevel.setText("Tambah Level");
+        getContentPane().add(lblJudulBuatLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 250, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrowfiks.png"))); // NOI18N
+        jLabel2.setMaximumSize(new java.awt.Dimension(111, 53));
+        jLabel2.setMinimumSize(new java.awt.Dimension(111, 53));
+        jLabel2.setPreferredSize(new java.awt.Dimension(111, 53));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 60, 40));
+
+        txtJumlahBaris.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtJumlahBaris.addActionListener(this::txtJumlahBarisActionPerformed);
+        getContentPane().add(txtJumlahBaris, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 230, 270, 30));
 
+        txtNamaLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtNamaLevel.addActionListener(this::txtNamaLevelActionPerformed);
+        getContentPane().add(txtNamaLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 270, 30));
 
+        txtJumlahKolom.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtJumlahKolom.addActionListener(this::txtJumlahKolomActionPerformed);
+        getContentPane().add(txtJumlahKolom, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 270, 30));
 
+        txtWaktu.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtWaktu.addActionListener(this::txtWaktuActionPerformed);
+        getContentPane().add(txtWaktu, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 270, 30));
 
-        btnSimpanLevel.setBackground(new java.awt.Color(153, 255, 153));
-        btnSimpanLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        btnSimpanLevel.setText("SIMPAN");
+        btnSimpanLevel.setBackground(new java.awt.Color(0, 204, 102));
+        btnSimpanLevel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnSimpanLevel.setForeground(new java.awt.Color(255, 255, 255));
+        btnSimpanLevel.setText("Tambah");
+        btnSimpanLevel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSimpanLevel.addActionListener(this::btnSimpanLevelActionPerformed);
+        getContentPane().add(btnSimpanLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 410, 420, 30));
 
         lblCbTema.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblCbTema.setText("Tema:");
+        getContentPane().add(lblCbTema, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, -1, 30));
 
         lblJumlahKolom.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblJumlahKolom.setText("Jumlah Kolom:");
-
-        lblJudulBuatLevel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblJudulBuatLevel.setText("Buat Level");
+        getContentPane().add(lblJumlahKolom, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, -1, 30));
 
         lblJumlahBaris.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblJumlahBaris.setText("Jumlah Baris:");
+        getContentPane().add(lblJumlahBaris, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 230, -1, 30));
 
+        cbTheme.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cbTheme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbTheme.addActionListener(this::cbThemeActionPerformed);
+        getContentPane().add(cbTheme, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 350, 270, 30));
 
         lblWaktu1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblWaktu1.setText("Waktu:");
+        getContentPane().add(lblWaktu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(650, 650, 650)
-                        .addComponent(lblJudulBuatLevel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(490, 490, 490)
-                        .addComponent(lblNamaLevel)
-                        .addGap(39, 39, 39)
-                        .addComponent(txtNamaLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(490, 490, 490)
-                        .addComponent(lblJumlahBaris)
-                        .addGap(28, 28, 28)
-                        .addComponent(txtJumlahBaris, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(490, 490, 490)
-                        .addComponent(lblJumlahKolom)
-                        .addGap(19, 19, 19)
-                        .addComponent(txtJumlahKolom, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(490, 490, 490)
-                        .addComponent(lblWaktu1)
-                        .addGap(89, 89, 89)
-                        .addComponent(txtWaktu, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(490, 490, 490)
-                        .addComponent(lblCbTema)
-                        .addGap(95, 95, 95)
-                        .addComponent(cbTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(600, 600, 600)
-                        .addComponent(btnSimpanLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(229, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(lblJudulBuatLevel)
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNamaLevel)
-                    .addComponent(txtNamaLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblJumlahBaris)
-                    .addComponent(txtJumlahBaris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblJumlahKolom)
-                    .addComponent(txtJumlahKolom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblWaktu1)
-                    .addComponent(txtWaktu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCbTema)
-                    .addComponent(cbTheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addComponent(btnSimpanLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        lblBg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/bg2.png"))); // NOI18N
+        getContentPane().add(lblBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -257,6 +227,12 @@ public class FormLevelInput extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbThemeActionPerformed
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        new DashboardLevel().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -285,6 +261,8 @@ public class FormLevelInput extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSimpanLevel;
     private javax.swing.JComboBox<Object> cbTheme;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lblBg;
     private javax.swing.JLabel lblCbTema;
     private javax.swing.JLabel lblJudulBuatLevel;
     private javax.swing.JLabel lblJumlahBaris;
