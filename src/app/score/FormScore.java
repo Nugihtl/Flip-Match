@@ -3,69 +3,82 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package app.score;
-
+ 
 import java.awt.Image;
 import javax.swing.ImageIcon;
-
+ 
 /**
  *
  * @author ASUS
  */
 public class FormScore extends javax.swing.JFrame {
-
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormScore.class.getName());
+ 
+    // Membuat objek 'scoreDAO' dari class ScoreDAO
+    // Objek ini berfungsi sebagai perantara untuk mengambil/menyimpan data ke database
     private ScoreDAO scoreDAO = new ScoreDAO();
     private int idLevel;
-
+    // Menyimpan ID level yang sedang aktif
+ 
     /**
      * Creates new form FormScore
      */
+    // Constructor ini akan dipanggil saat jendela FormScore baru dibuat
+    // Untuk mengirim data hasil game (menang/kalah, langkah, waktu, skor, level) ke sini
     public FormScore(boolean win, int moves, int timeLeft, int score, int idLevel) {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.idLevel = idLevel;
-
+        initComponents(); // Menyiapkan komponen visual yang tampil di layar kayak (tombol, label, tabel)
+        this.setLocationRelativeTo(null); // Agar layarnya di tengah
+        this.idLevel = idLevel; // Untuk menyimpan nilai idLevel dari constructor
+ 
+        // Mengisi tulisan di label sesuai data yang diterima
         lblUcapan.setText(win ? "Selamat! Kamu Menang" : "Waktu Habis!");
         lblmoves.setText("Moves: " + moves);
         lbltimeleft.setText("Time left: " + timeLeft + "s");
         lblskor.setText("Score: " + score);
         lbllevel.setText("Level " + idLevel);
-
-              setTitle("Flip & Match");
-
+ 
+        setTitle("Flip & Match");
+ 
         java.net.URL logoURL = getClass().getResource("logo-match.png");
-
+ 
         if (logoURL != null) {
             ImageIcon icon = new ImageIcon(logoURL);
-            // Resize ke 64x64
             Image scaledImage = icon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
             setIconImage(scaledImage);
         }
-        
-        muatDataTabel();
+ 
+        muatDataTabel(); // Memanggil fungsi untuk menampilkan top 5 ke tabel
     }
-
+ 
+    // Fungsi untuk menampilkan data ke dalam tabel
     public void muatDataTabel() {
+        // Membuat objek 'model' dari class DefaultTableModel
+        // Objek ini bertugas mengatur kolom dan baris data pada tabel
         javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+        // Menambahkan kolom
         model.addColumn("Peringkat");
         model.addColumn("Nama Pemain");
         model.addColumn("Level");
         model.addColumn("Skor");
         model.addColumn("Tanggal");
-
-        top5table.setModel(model);
-        top5table.setDefaultEditor(Object.class, null); // non-editable
-
+ 
+        top5table.setModel(model); // Untuk menghubungkan data ke tabel
+        top5table.setDefaultEditor(Object.class, null); // Membuat tabel tidak bisa diketik manual
+ 
+        // Digunakan untuk menyesuaikan ukuran column
         top5table.getColumnModel().getColumn(0).setPreferredWidth(80);
         top5table.getColumnModel().getColumn(1).setPreferredWidth(200);
         top5table.getColumnModel().getColumn(2).setPreferredWidth(120);
         top5table.getColumnModel().getColumn(3).setPreferredWidth(80);
         top5table.getColumnModel().getColumn(4).setPreferredWidth(150);
-
+ 
+        // Digunakan untuk mengambil daftar skor dari database
         java.util.List<Score> dataScore = scoreDAO.getTop5(idLevel);
+        // Untuk membuat urutan peringkat
         String[] medali = {"1", "2", "3", "4", "5"};
         int i = 0;
+        // Melakukan perulangan untuk setiap data 'Score' yang ditemukan
         for (Score s : dataScore) {
+            // Memasukkan data ke dalam baris tabel
             model.addRow(new Object[]{
                 medali[i++],
                 s.getNamaLengkap(),
@@ -211,30 +224,21 @@ public class FormScore extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Aksi saat tombol "Continue" diklik
     private void btncontinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinueActionPerformed
         // TODO add your handling code here:
+        // Untuk pindah ke layar pilih lavel
         app.auth.PilihLevel menu = new app.auth.PilihLevel();
-        menu.setVisible(true);
-        this.dispose();
+        menu.setVisible(true); // Menampilkan layar baru
+        this.dispose(); // Menutup layar skor
     }//GEN-LAST:event_btncontinueActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Create and display the form */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(() -> new FormScore(true, 3, 53, 715, 1).setVisible(true));
+        // Baris ini digunakan untuk menjalankan halaman saya
+        java.awt.EventQueue.invokeLater(() -> new FormScore(true, 0, 0, 0, 0).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

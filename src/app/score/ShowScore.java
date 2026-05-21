@@ -16,16 +16,18 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ShowScore extends javax.swing.JFrame {
     
+    // Untuk mencatat error
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ShowScore.class.getName());
 
     /**
      * Creates new form ShowScore
      */
     
-    private DefaultTableModel model;
-    private ScoreDAO scoreDAO;
+    private DefaultTableModel model; // Model untuk mengatur struktur tabel
+    private ScoreDAO scoreDAO; // Atribut untuk komunikasi dengan database
 
     public ShowScore() {
+        // Menggunakan komponen gui
         initComponents();
 
               setTitle("Flip & Match");
@@ -39,6 +41,7 @@ public class ShowScore extends javax.swing.JFrame {
             setIconImage(scaledImage);
         }
         
+        // Untuk membuat objek baru
         scoreDAO = new ScoreDAO();
 
         // Buat header tabel
@@ -51,19 +54,19 @@ public class ShowScore extends javax.swing.JFrame {
 
         tabelDataScore.setModel(model);
 
-        // Load data
+        // Memuat data dari database ke tabel saat form pertama kali dibuka
         loadDataScore();
     }
 
-    
+    // Method untuk mengambil data dari database dan menampilkannya ke tabel.
      private void loadDataScore() {
 
+         // Kosongkan tabel sebelum diisi data baru
         model.setRowCount(0);
-
+        // Untuk mengambil score ke dalam list
         List<Score> list = scoreDAO.getAllScore();
-
         for (Score s : list) {
-
+            // Buat ngambil data dari tabelnya
             Object[] row = {
                 s.getIdScore(),
                 s.getNamaLengkap(),
@@ -71,7 +74,7 @@ public class ShowScore extends javax.swing.JFrame {
                 s.getSkor(),
                 s.getTanggalMain()
             };
-
+            // Untuk menambahkan row
             model.addRow(row);
         }
     }
@@ -164,22 +167,26 @@ public class ShowScore extends javax.swing.JFrame {
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
         // TODO add your handling code here:
+        // Untuk pindah ke halaman menu admin
         new MenuAdmin().setVisible(true);
+        // Untuk menutup halaman sekarang
         dispose();
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void tabelDataScoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataScoreMouseClicked
         // TODO add your handling code here:
+        // Untuk memilih baris data dari tabel yang diklik
         int row = tabelDataScore.getSelectedRow();
 
         if (row != -1) {
-
+            // Untuk mengambil nilainya
             String idScore = model.getValueAt(row, 0).toString();
             String namaUser = model.getValueAt(row, 1).toString();
             String level = model.getValueAt(row, 2).toString();
             String skor = model.getValueAt(row, 3).toString();
             String tanggal = model.getValueAt(row, 4).toString();
 
+            // Untuk menampilakn nilainya
             System.out.println("ID Score : " + idScore);
             System.out.println("Nama User : " + namaUser);
             System.out.println("Level : " + level);
